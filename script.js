@@ -1,7 +1,5 @@
 var currentTabOpen = "";
 
-window.onLoad = updateDisplay;
-
 function updateDisplay(){
     var cto = currentTabOpen;
     if (currentTabOpen == "") {
@@ -24,7 +22,7 @@ function updateDisplay(){
 }
 }
 
-function buttonStreamSchedule(){
+function buttonStreamSchedule() {
     if (currentTabOpen != "stream"){
         currentTabOpen = "stream";
     } else {
@@ -33,7 +31,7 @@ function buttonStreamSchedule(){
     updateDisplay();
 }
 
-function buttonMiscNews(){
+function buttonMiscNews() {
     if (currentTabOpen != "misc"){
         currentTabOpen = "misc";
     } else {
@@ -42,7 +40,7 @@ function buttonMiscNews(){
     updateDisplay();
 }
 
-function buttonFanNews(){
+function buttonFanNews() {
     if (currentTabOpen != "fandom"){
         currentTabOpen = "fandom";
     } else {
@@ -51,7 +49,7 @@ function buttonFanNews(){
     updateDisplay();
 }
 
-function buttonFanArt(){
+function buttonFanArt() {
     if (currentTabOpen != "fanart"){
         currentTabOpen = "fanart";
     } else {
