@@ -17,7 +17,7 @@ function updateDisplay(){
         document.getElementById('stuff').innerHTML = "OMG Frozen is like MLP!";
     }
     if (cto == "fanart"){
-        document.getElementById('stuff').innerHTML = "<a href=\"http://kushiyo-takeru.tumblr.com/post/78547271256/it-needed-to-be-done-this\">My parents are deaaaaaaaaad!</a>;
+        document.getElementById('stuff').innerHTML = "<a href=\"http://kushiyo-takeru.tumblr.com/post/78547271256/it-needed-to-be-done-this\">My parents are deaaaaaaaaad!</a>";
     }
     
     
