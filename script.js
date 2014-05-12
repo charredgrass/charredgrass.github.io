@@ -1,6 +1,6 @@
 var currentTabOpen = "";
 
-document.getElementById('stuff').innerHTML = "Click on a tab to view content!";
+window.onLoad = updateDisplay;
 
 function updateDisplay(){
     var cto = currentTabOpen;
