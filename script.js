@@ -20,7 +20,7 @@ function updateDisplay(){
     
     
 }
-}
+
 
 function buttonStreamSchedule() {
     if (currentTabOpen != "stream"){
