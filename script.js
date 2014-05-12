@@ -18,3 +18,5 @@ function buttonStreamSchedule(){
     } else {
         currentTabOpen = "";
     }
+    updateDisplay();
+}
