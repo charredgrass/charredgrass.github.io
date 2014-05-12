@@ -1,8 +1,8 @@
-currentTabOpen = "";
+var currentTabOpen = "";
 
 
 function updateDisplay(){
-    cto = currentTabOpen;
+    var cto = currentTabOpen;
     if (currentTabOpen == "") {
         document.getElementById('stuff').innerHTML = "Click on a tab to view content!"
     }
