@@ -1,5 +1,6 @@
 var currentTabOpen = "";
 
+updateDisplay();
 
 function updateDisplay(){
     var cto = currentTabOpen;
@@ -19,4 +20,8 @@ function buttonStreamSchedule(){
         currentTabOpen = "";
     }
     updateDisplay();
+}
+
+function butt(mod) {
+    currentTabOpen = mod;
 }
