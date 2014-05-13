@@ -1,0 +1,5 @@
+h1  {text-align:center;}
+button {text-align:center;}
+p.version {text-align:center;}
+p.info {text-align:center;}
+table,th,td{border:1px solid black;border-collapse:collapse;}
