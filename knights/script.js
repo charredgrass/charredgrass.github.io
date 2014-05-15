@@ -1,7 +1,7 @@
 var PlayerName = "";
 
 function init(){
-    if (localstorage.getItem("game") != "yes"){
+    if (localStorage.getItem("game") != "yes"){
         console.log('No game detected.');
         playerName = prompt("What is your name?","");
     } else {
