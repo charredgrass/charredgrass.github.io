@@ -1,26 +1,20 @@
-var player1 = {health:100,mana:100,char:""};
-var player2 = {health:100,mana:100,char:""};
-
-Game.init = init;
+var PlayerName = "";
 
 function init(){
-    //stuff that happens when the canvas loads
-}
-
-function pickChar(player, character){
-    if (player == 1) {
-        player1.char = character;
+    if (localstorage.getItem("game") != "yes"){
+        console.log('No game detected.');
+        playerName = prompt("What is your name?","");
     } else {
-        player2.char = character;
+        load();
     }
 }
-
-
-function minion(health, strength) {
-    this.health = 10;
-    this.strength = 1;
+function save(){
+	console.log('Saving game');
+	localStorage.setItem("game","yes");
+	localStorage.setItem("name", playerName);
+	
 }
-
-window.onload = function(){
-    //Yes
-};
+function load(){
+	console.log('Attempting to load game...');
+	playerName = localStorage.getItem("name"); //Don't forget to write parseInt() when loading ints
+}
