@@ -1,12 +1,29 @@
 <!DOCTYPE html>
 <head><title>Frozen Pokemon</title></head>
 <body style="background-color:#696969">
+<script>
+  var image = 1;
+  function changeImage(){
+   image += 1;
+   if (image == 3) {
+     image = 1;
+   }
+   if (image == 1) {
+     document.getElementById('image').innerHTML = "<img src=\"hansvhansme.png\"></img>"
+   }
+   if (image == 2) {
+     document.getElementById('image').innerHTML = "<img src=\"vsanna.png\"></img>"
+   }
+  }
+  
+</script>
 <link rel="stylesheet" type="text/css" href="stylesheet.css" />
 <h2>Frozen Pokemon</h2>
 <br>
 <p>Frozen Pokemon is a (free) game made in RPG Maker XP using the Pokemon Essentials template. It uses Gen V mechanics, but I am working on special Mega Evolutions for the game.</p>
 <p>Screenshots (More coming soon!): </p>
-<img src="hansvhansme.png"></img>
+<button onClick=changeImage()>Next Image</button>
+<div id="image"><img src="hansvhansme.png"></img></div>
 <p>FAQ</p>
 
 <strong>Is this legal?</strong>
