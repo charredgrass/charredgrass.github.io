@@ -4,12 +4,12 @@ p.version {text-align:center;}
 p.info {text-align:center;}
 table,th,td{border:1px solid black;border-collapse:collapse;}
 button{
-	width:140px;
+	width:100px;
 	border:1px solid black;
 	background-color:#fff;
 	margin-right:5px;
 	padding:0.1em;
-	font-size:0.8em;
+	font-size:0.7em;
 	font-weight:500;
 }
 button:hover{
