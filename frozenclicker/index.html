@@ -280,6 +280,11 @@ function toggleGamble(){
 	}
 }
 
+function hansButton(){
+	if(afford(100,100,100)){
+		purchase(100,100,100)
+	}
+}
 
 var images = false
 function toggleImagesAsButtons() {
@@ -330,6 +335,8 @@ window.setInterval(everySecond,1000);
 <button type="button" onClick="toggleGamble()" id="togglegamblebutton">Show Gambling</button>
 <button type="button" onClick="toggleImagesAsButtons()" id="imagesbutton">Toggle Bad Graphics (WIP)</button>
 <button type="button" onClick="toggleAutosave()" id="autosavetoggle">Turn On Autosave</button>
+<br>
+<button type="button" onClick="hansButton()" id="hansbutton">Hans Button</button>
 <div id="todo"></div>
 <div id="prices"></div>
 <div id="people"></div>
