@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Frozen Clicker</title>
+</head>
+<body style="background-color:#E6E6FA">
+<!--
+
+Hello wandering HTML code reader!
+I am /u/charredgrass! This is the source code for my game Frozen Clicker!
+It's heavily inspired by the movie Frozen by Disney and the game Cookie Clicker by Ortiel.
+Lots of the code was inspired by CivClicker by David Holley, I looked at it to learn some of the javascript I didn't know, but it this game is all original code.
+This code is published under the MIT Creative Commons Liscence
+I am not sponsored by, or affiliated by in any way by Disney, Frozen, Cookie Clicker, Ortiel, Civ Clicker, nor David Holley.
+
+I am not responsible for any harm caused by this program (I honestly have no idea how you would be harmed)
+Contact: maxchowla@gmail.com
+
+
+-->
+<!-- JAVASCRIPT SECTION: ANTI-CACHING -->
+<!-- might be moved to .js file in fututre -->
+<script>
+//Dear any coders reading this code: I'M SORRY THE SOURCE CODE IS ALL IN THE HTML DOC
+console.log('Initiating');
+var version = "0.121";
+var tsla = 0;//time since last autosave
+window.onload = function() {
+	document.getElementById('version').innerHTML = "version " + version;
+};
+var ice = 0;//ice
+var carrots = 0;//carrots
+var icebricks = 0;//refined ice: not yet implemented
+var CHOCOLATE = 0;
+var todo = false;
+var todolist = "Format text better, BALANCE GAME";
+var pricetable = '<h3>Costs</h3><table><tr><td>Person</td><td>Ice</td><td>Carrots</td><td>Chocolate</td></tr><td>Olaf</td><td>15</td><td>1</td><td>0</td></tr><tr><td>Sven</td><td>5</td><td>100</td><td>0</td></tr><tr><td>Kristoff</td><td>500</td><td>500</td><td>0</td></tr><tr><td>Anna</td><td>0</td><td>10</td><td>50</td></tr><tr><td>Elsa</td><td>100</td><td>100</td><td>1000</td></tr><tr><td>Chocolate Chance</td><td>100</td><td>300</td><td>0</td></tr><tr><td>1 Chocolate</td><td>1000</td><td>1000</td><td>0</td>';
+var peopleInventory = '';
+var olaf = 0;
+var sven = 0;
+var kristoff = 0;
+var anna = 0;
+var elsa = 0;
+var chocolateChance = false;
+var boost1timer = 0;
+var autosave = false;
+var gamblestring = '<button type="button" id="gamblebutton1" onClick="gamble(100)">Gamble 100 resource</button><button type="button" id="gamblebutton2" onClick="gamble(1000)">Gamble 1000 resource</button><button type="button" id="gamblebutton3" onClick="gambleCustom()">Gamble some resource</button>';
+function buy(what){
+	if (what=='olaf'){
+		if (afford(15,1,0)) {
+			purchase(15,1,0);
+			olaf++;
+		}
+	}
+		if (what=='sven'){
+		if (afford(5,100,0)) {
+			purchase(5,100,0);
+			sven++;
+		}
+	}
+		if (what=='kristoff'){
+		if (afford(500,500,0)) {
+			purchase(500,500,0);
+			kristoff++;
+		}
+	}
+		if (what=='anna'){
+		if (afford(0,10,50)) {
+			purchase(0,10,50);
+			anna++;
+		}
+	}
+		if (what=='elsa'){
+		if (afford(100,100,1000)) {
+			purchase(100,100,1000);
+			elsa++;
+		}
+	}
+	updateDisplay();
+}
+function resetGame(){
+	ice = 0;
+	carrots = 0;
+	icebricks = 0;
+	CHOCOLATE = 0;
+	olaf = 0;
+	sven = 0;
+	kristoff = 0;
+	anna = 0;
+	elsa = 0;
+	updateDisplay();
+	console.log('Game has been reset');
+}
+function purchase(pice, pcarrots, pchocolate){
+	ice -= pice;//No, it's not "pice." It's PIce.
+	carrots -= pcarrots;
+	CHOCOLATE -= pchocolate;
+	updateDisplay();
+}
+function afford(pice, pcarrots, pchocolate){
+	if (ice >= pice && carrots >= pcarrots && CHOCOLATE >= pchocolate){
+		return true;
+	} else {
+		return false;
+	}
+
+}
+function buildIce(){
+	ice++;
+	updateDisplay();
+}
+function growCarrot(){
+	carrots++;
+	updateDisplay();
+}
+function gamble(amt){
+	//gambling code
+	var gambleNum = Math.floor(Math.random() * 10) + 1;
+	if (afford(amt,amt,0)){
+		purchase(amt,amt,0);
+		if (gambleNum == 1){
+			ice += amt * 8;
+			carrots += amt * 8;
+			CHOCOLATE += Math.floor(amt / 1000);
+		}
+	} else {
+
+	}
+}
+function gambleCustom(){
+	var howMuch = prompt('How much resource?','');
+	howmuch = parseInt(howMuch);
+	gamble(howMuch);
+}
+function randomChocolate(){
+	if (chocolateChance){
+		if (1 + Math.floor(Math.random() * 100) == 1){
+			CHOCOLATE += 1;
+		}
+	}
+	boost1timer -= 1;
+	if (boost1timer <= 0) {
+		chocolateChance = false;
+	}
+}
+function buyChocolateBoost(){
+	if (afford(100,300,0)){
+		purchase(100,300,0)
+		chocolateChance = true;
+		boost1timer = 120
+	} else {
+		console.log('lol broke')
+	}
+}
+function buyChocolate(){
+	if (afford(1000,1000,0)){
+		purchase(1000,1000,0)
+		CHOCOLATE += 1
+	} else {
+
+	}
+}
+function toggleAutosave(){
+	autosave = !autosave;
+	tsla = 60;
+	if (autosave){
+		document.getElementById('autosavetoggle').innerHTML = "Turn Off Autosave"
+	} else {
+		document.getElementById('autosavetoggle').innerHTML = "Turn On Autosave"
+	}
+}
+function updateDisplay(){
+	document.getElementById('ice').innerHTML = "Ice: " + Math.floor(ice);//wait why did i put Math.floor()
+	document.getElementById('carrots').innerHTML = "Carrots: " + carrots;//    i could at least put it here...
+	document.getElementById('chocolate').innerHTML = "Chocolate: " + CHOCOLATE;
+	document.getElementById('olafamt').innerHTML = "Olafs: " + olaf;
+	document.getElementById('svenamt').innerHTML = "Svens: " + sven;
+	document.getElementById('kristoffamt').innerHTML = "Kristoffs: " + kristoff;
+	document.getElementById('annaamt').innerHTML = "Annas: " + anna;
+	document.getElementById('elsaamt').innerHTML = "Elsas: " + elsa;
+	if (boost1timer > 0){
+		document.getElementById('boost1timer').innerHTML = "Time remaining on boost: " + boost1timer;
+	} else {
+		document.getElementById('boost1timer').innerHTML = ""
+	}
+}
+function everySecond(){
+	//console.log('A SECOND HAS PASSED!');
+	//Stop it, past me. That sounds loud and obnoxious.
+	tsla++;
+	if (tsla>=60 && autosave == true){
+		tsla = 0;
+		save();
+		console.log('Autosaved');
+	}
+	ice += olaf;
+	carrots += 2 * sven;
+	ice += 5 * kristoff;
+	carrots += 4 * kristoff;
+	ice += 100 * elsa
+	if (anna > 0 && anna < 100) {
+		if (Math.floor(Math.random()*101) + 1 <= anna) {//more annas = more chocolate chance
+			CHOCOLATE += 1;
+			//console.log('nom nom');//I literally messed up three times writing that...
+		}
+	} else {
+		CHOCOLATE += Math.floor(anna/100);
+	}
+	//Bugged: changes ice to NaN when loaded from save or adds 1 to end every time
+	//FIXED: parsed localStorage into ints (save then load causes values to become strings
+	updateDisplay();
+	randomChocolate();
+	return "isAGoodMove";
+}
+function hax(amount){
+	ice += amount
+	carrots += amount
+}
+function save(){
+	console.log('Saving game');
+	localStorage.setItem("game","yes");//long story
+	localStorage.setItem("ice", ice);
+	localStorage.setItem("carrots", carrots);
+	localStorage.setItem("olaf", olaf);
+	localStorage.setItem("sven", sven);
+	localStorage.setItem("kristoff", kristoff);
+	localStorage.setItem("anna", anna);
+	localStorage.setItem("elsa", elsa);
+	localStorage.setItem("CHOCOLATE",CHOCOLATE);
+}
+function load(){
+	console.log('Attempting to load game...');
+	ice = parseInt(localStorage.getItem("ice"));
+	carrots = parseInt(localStorage.getItem("carrots"));
+	olaf = parseInt(localStorage.getItem("olaf"));
+	sven = parseInt(localStorage.getItem("sven"));
+	kristoff = parseInt(localStorage.getItem("kristoff"));
+	anna = parseInt(localStorage.getItem("anna"));
+	elsa = parseInt(localStorage.getItem("elsa"));
+	CHOCOLATE = parseInt(localStorage.getItem("CHOCOLATE"));
+	updateDisplay();
+}
+function toggleToDo(){
+	if (!todo) {
+		document.getElementById('todobutton').innerHTML = "Hide To-Do List";
+		document.getElementById('todo').innerHTML = todolist;
+	} else {
+		document.getElementById('todobutton').innerHTML = "Show To-Do List";
+		document.getElementById('todo').innerHTML = "";
+	}
+	todo = !todo
+}
+function togglePrices(){
+	if (!todo) {
+		document.getElementById('pricesbutton').innerHTML = "Hide Prices";
+		document.getElementById('prices').innerHTML = pricetable;
+	} else {
+		document.getElementById('pricesbutton').innerHTML = "Show Prices";
+		document.getElementById('prices').innerHTML = "";
+	}
+	todo = !todo
+}
+function toggleInventory(){
+	if (!todo) {
+		document.getElementById('peoplebutton').innerHTML = "Hide Inventory";
+		document.getElementById('people').innerHTML = peopleinventory;
+	} else {
+		document.getElementById('peoplebutton').innerHTML = "Show Inventory";
+		document.getElementById('people').innerHTML = "";
+	}
+	todo = !todo
+}
+function toggleGamble(){
+	if(!todo){
+		document.getElementById('togglegamblebutton').innerHTML = "Hide Gambling";
+		document.getElementById('gamble').innerHTML = gamblestring;
+	} else {
+		document.getElementById('togglegamblebutton').innerHTML = "Show Gambling";
+		document.getElementById('gamble').innerHTML = "";
+	}
+}
+
+
+var images = false
+function toggleImagesAsButtons() {
+	if (!images) {
+		document.getElementById('icebutton').innerHTML = '<img src="frozenheart.png"></img>';
+		document.getElementById('carrotsbutton').innerHTML = '<img src="olaf.png"></img>';
+		document.getElementById('svenbutton').innerHTML = '<img src="sven.png"></img>';
+		document.getElementById('kristoffbutton').innerHTML = '<img src="kristoff.jpeg"></img>';
+		document.getElementById('olafbutton').innerHTML = '<img src="olaf.jpg"></img>';
+		document.getElementById('annabutton').innerHTML = '<img src="anna.jpg"></img>';
+		document.getElementById('elsabutton').innerHTML = '<img src="elsa.jpg"></img>';
+	} else {
+		document.getElementById('icebutton').innerHTML = "Mine Ice";
+		document.getElementById('carrotsbutton').innerHTML = "Grow Carrots";
+		document.getElementById('svenbutton').innerHTML = "Buy 1 Sven";
+		document.getElementById('kristoffbutton').innerHTML = "Buy 1 Kristoff";
+		document.getElementById('olafbutton').innerHTML = "Buy 1 Olaf";
+		document.getElementById('annabutton').innerHTML = "Buy 1 Anna";
+		document.getElementById('elsabutton').innerHTML = "Buy 1 Elsa";
+	}
+	images = !images
+}
+window.setInterval(everySecond,1000);
+</script>
+<link rel="stylesheet" type="text/css" href="stylesheet.css" />
+<h1 id="header">Frozen Clicker</h1>
+<p id="version" class="version"></p>
+<p id="instructions"></p>
+<p id="info" class="info"><a href="info/info.html">Info</a> <a href="howtoplay/howtoplay.html">How to Play</a> <a href="frozencontest.html">Frozen Contest</a></p>
+<button type="button" onClick="buildIce()" id="icebutton">Mine Ice</button>
+<button type="button" onClick="growCarrot()" id="carrotsbutton">Grow Carrots</button>
+<button type="button" onClick="save()">Save Game</button>
+<button type="button" onClick="load()">Load Game</button>
+<button type="button" onClick="resetGame()">Reset Game</button>
+<br>
+<button type="button" onClick="buy('olaf')" id="olafbutton">Buy 1 Olaf</button>
+<button type="button" onClick="buy('sven')" id="svenbutton">Buy 1 Sven</button>
+<button type="button" onClick="buy('kristoff')" id="kristoffbutton">Buy 1 Kristoff</button>
+<!--Dammit, Kristoff. Why is your name the only one that isn't 4 letters?-->
+<button type="button" onClick="buy('anna')" id="annabutton">Buy 1 Anna</button>
+<button type="button" onClick="buy('elsa')" id="elsabutton">Buy 1 Elsa</button>
+<br>
+<button type="button" onClick="buyChocolateBoost()" id="chocobutton">Buy chance to get chocolate (120 sec)</button>
+<button type="button" onClick="buyChocolate()" id="buychocolatebutton">Buy chocolate</button>
+<br>
+<button type="button" onClick="toggleToDo()" id="todobutton">Show To-do list</button>
+<button type="button" onClick="togglePrices()" id="pricesbutton">Show Prices</button>
+<button type="button" onClick="toggleGamble()" id="togglegamblebutton">Show Gambling</button>
+<button type="button" onClick="toggleImagesAsButtons()" id="imagesbutton">Toggle Bad Graphics (WIP)</button>
+<button type="button" onClick="toggleAutosave()" id="autosavetoggle">Turn On Autosave</button>
+<div id="todo"></div>
+<div id="prices"></div>
+<div id="people"></div>
+<div id="gamble"></div>
+<h2 id="invlabel">Inventory:</h2>
+<div id="boost1timer"></div>
+<div id="ice">Ice: 0</div>
+<div id="carrots">Carrots: 0</div>
+<div id="chocolate">Chocolate: 0</div>
+<div id="olafamt">Olafs: 0</div>
+<div id="svenamt">Svens: 0</div>
+<div id="kristoffamt">Kristoffs: 0</div>
+<div id="annaamt">Annas: 0</div>
+<div id="elsaamt">Elsas: 0</div>
+<br>
+</head>
+</html>
