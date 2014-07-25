@@ -19,3 +19,6 @@ button:disabled{
 	color:#ccc;
 	font-weight:normal;
 }
+button:graphics{
+	margin-right:0px;
+}
