@@ -6,13 +6,23 @@ var power = 0;
 var wood = 0;
 var nails = 0;
 var flats = 0;
+var money = 0;
 var isCompOn = false;
+
+var techieStats = [{name: "Henry", id: 1, woodPS: 1, nailPS: 1, powPS: 1, quant: 0},{name: "Philipp", id: 2, woodPS: 5, nailPS: 0, powPS: 0, quant: 0}];
 
 var woodInc = 1;
 var powInc = 4;
 var nailInc = 1;
 var maxPow = 100;
 var maxAir = 100;
+
+var log = "";
+
+//window.onLoad() = function(){
+//	log += "Document has loaded.\n";
+//};
+
 
 function everySecond(){
 	//Compressor Code
@@ -25,7 +35,19 @@ function everySecond(){
 			air += 1;//...and gain air.
 		}
 	}
+	addStuff(0);
+	addStuff(1);
 	updateDisplay();
+}
+
+function addStuff(id){
+	wood += techieStats[id].woodPS * techieStats[id].quant;
+	nail += techieStats[id].nailPS * techieStats[id].quant;
+	power += techieStats[id].powPS * techieStats[id].quant;
+	if (power > 100){
+		power = 100;
+	}
+
 }
 
 function afford(pAir, pPower, pWood, pNails){//Returns true if you can afford the stuffs.
@@ -79,12 +101,26 @@ function buildFlat(){
 	updateDisplay();
 }
 
+function sellFlat(){
+	if (flats >= 1) {
+		flats -=1
+		money += 5;
+	}
+}
+
+function buy(what){
+	if (what == "nothing" && afford(0,0,0,0)) {
+		wood += 0;
+	}
+}
+
 function updateDisplay() {
 	document.getElementById('woodAmt').innerHTML = "1 by 3: " + wood;
 	document.getElementById('nailAmt').innerHTML = "Nails: " + nails;
 	document.getElementById('flatAmt').innerHTML = "Flats: " + flats;
 	document.getElementById('powerPerc').innerHTML = "Power: " + Math.floor(power / maxPow * 100) + "%";
 	document.getElementById('airPerc').innerHTML = "Air: " + Math.floor(air / maxAir * 100) + "%";
+	//document.getElementById('inBarPower').style.width = Math.floor(power / maxPow * 100);
 }
 
 function save(){ //Stores inventory variables into localStorage.
@@ -99,7 +135,10 @@ function save(){ //Stores inventory variables into localStorage.
 	localStorage.setItem("nailIncLS", nailInc);
 	localStorage.setItem("maxAirLS", maxAir);
 	localStorage.setItem("maxPowLS", maxPow);
+	localStorage.setItem("moneyLS", money);
 
+	localStorage.setItem("HenryLS",techieStats[0].quant);
+	localStorage.setItem("PhilippLS",techieStats[1].quant);
 }
 
 function load(){ //Loads inventory variables from localStorage.
@@ -114,6 +153,11 @@ function load(){ //Loads inventory variables from localStorage.
 	maxAir = parseInt(localStorage.getItem("maxAirLS"));
 	maxPow = parseInt(localStorage.getItem("maxPowLS"));
 	flats = parseInt(localStorage.getItem("flatsLS"));
+	money = parseInt(localStorage.getItem("moneyLS"));
+
+	techieStats[0].quant = parseInt(localStorage.getItem("HenryLS"));
+	techieStats[1].quant = parseInt(localStorage.getItem("PhilippLS"));
+
 	updateDisplay();
 }
 

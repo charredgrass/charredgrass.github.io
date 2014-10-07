@@ -10,18 +10,19 @@
 	<div id="header">
 		<div class="head">Techie Clicker</div>
 	</div>
-	<div id="display">
-		<img src="images/power.png"></img><!--<div id="powerBar"></div>--><div id="powerPerc">Power: 0%</div>
+	<div id="display"><table>
+		<tr><td><img src="images/power.png" onClick="clickPower()"></img></td><td><div id="powerPerc">Power: 0%</div></td><td><div id="powerBar" class="bar"><div id="inBarPower" class="xBar"></div</div></td></tr>
 	</br>
-		<img src="images/wood.png"></img><div id="woodAmt">1 by 3: 0</div>
+		<tr><td><img src="images/wood.png" onClick="clickWood()"></img></td><td><div id="woodAmt">1 by 3: 0</div></td><td></td></tr>
 	</br>
-		<img src="images/nail.png"></img><div id="nailAmt">Nails: 0</div>
+		<tr><td><img src="images/nail.png" onClick="clickNail()"></img></td><td><div id="nailAmt">Nails: 0</div></td><td></td></tr>
 	</br>
-		<div class="compressorIcon"></div><!--<div id="airBar"></div>--><div id="airPerc">Air: 0%</div>
+		<tr><td><div class="compressorIcon"></div></td><td><div id="airPerc">Air: 0%</div></td><td><div id="airBar" class="bar"><div id="inBarAir" class="xBar"></div</div></td></tr>
 	</br>
-		<img src="images/flat.png"></img><div id="flatAmt">Flats: 0</div>
-	</div>
+		<tr><td><img src="images/flat.png"></img></td><td><div id="flatAmt">Flats: 0</div></td><td></td></tr>
+	</table></div>
 </br>
+	<div id="botCol">
 	<div id="buttons">
 		<button id="crankPower" onClick="clickPower()">Generate Power</button>
 		<button id="toggleCompressor" onClick="clickCompressor()">Turn Compressor On</button>
@@ -34,4 +35,5 @@
 		<button id="save" onClick="save()">Save Game</button>
 		<button id="load" onClick="load()">Load Game</button>
 	</div>
+</div>
 </html>
