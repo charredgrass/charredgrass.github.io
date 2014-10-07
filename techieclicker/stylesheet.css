@@ -1,0 +1,10 @@
+/*Techie Clicker 0.1 by Maxwell Chow - stylesheet*/
+
+.head{
+	text-align:center;
+	font-size:30px;
+}
+
+#display div{
+	display:inline;
+}
