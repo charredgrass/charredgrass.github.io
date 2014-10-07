@@ -1,0 +1,51 @@
+<!-- Frozen Clicker v2.0 by /u/charredgrass -->
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="stylesheet.css">
+	<script src="script.js"></script>
+</head>
+<body>
+	<div id="header"></div>
+		<div class="sidepad"></div>
+		<div class="spinsnow"></div>
+		<div class="head">Frozen Clicker</div>
+		<div class="spinsnow"></div>
+		<div class="sidepad"></div>
+	</div>
+<p id="version" class="version"></p>
+<p id="info" class="info"><a href="howtoplay.html">How to Play</a></p>
+	<div id="buybuttons">
+		<img src="sven.jpg" onclick="build('sven')" class="buybutton"></img>
+		<img src="olaf.jpg" onclick="build('olaf')" class="buybutton"></img>
+		<img src="kristoff.jpg" onclick="build('kristoff')" class="buybutton"></img>
+		<img src="anna.jpg" onclick="build('anna')" class="buybutton"></img>
+		<img src="elsa.jpg" onclick="build('elsa')" class="buybutton"></img>
+	</div>
+</br>
+	<div id="clickbuttons">
+		<button class="clickButton" onclick="clickIce()"><img src="ice.png"></img></button>
+		<button class="clickButton" onclick="clickCarrot()"><img src="carrots.png"></img></button>
+	</br>
+		<button class="clickButton" onclick="buyChocolate()">Buy Chocolate</button>
+	</div>
+</br>
+	<div id="savebuttons">
+		<button class="saveButtonSave" onClick="save()">Save Game</button>
+		<button class="saveButtonLoad" onClick="load()">Load Game</button>
+		<button id="pricesbutton" onClick="togglePrices()">Show Prices</button>
+	</div>
+</br>
+	<div id="display">
+		<div id="ice">Ice: 0</div>
+		<div id="carrots">Carrots: 0</div>
+		<div id="chocolate">Chocolate: 0</div>
+		<div id="olafamt">Olafs: 0</div>
+		<div id="svenamt">Svens: 0</div>
+		<div id="kristoffamt">Kristoffs: 0</div>
+		<div id="annaamt">Annas: 0</div>
+		<div id="elsaamt">Elsas: 0</div>
+	</div>
+	<div id="prices"></div>
+</body>
+</html>

@@ -1,0 +1,65 @@
+/* Frozen Clicker 2.0 by /u/charredgrass */
+
+/**.head::after{
+	background: url("snowflake.png") no-repeat;
+	display:block;
+	-webkit-animation:snowflake 5s linear infinite;
+	animation:snowflake 5s linear infinite;
+	position:absolute;
+	z-index:100;
+	content:"";
+	width:23px;
+	height:20px;
+	margin-top:3px;
+	margin-left:102px;
+	background-size:260px,200px;
+}
+
+@-webkit-keyframes snowflake {
+0% { -webkit-transform:rotate(0grad) rotateY(0grad) rotateX(0grad); }
+50% { -webkit-transform:rotate(200grad) rotateY(200grad) rotateX(200grad); }
+100% { -webkit-transform:rotate(400grad) rotateY(400grad) rotateX(400grad); }
+}
+
+@keyframes snowflake {
+0% { transform:rotate(0grad) rotateY(0grad) rotateX(0grad); }
+50% { transform:rotate(200grad) rotateY(200grad) rotateX(200grad); }
+100% { transform:rotate(400grad) rotateY(400grad) rotateX(400grad); }
+}**/
+
+.head{
+	text-align:center;
+	font-size:30px;
+}
+.clickButton {
+	/*width and height for clickButton*/
+}
+
+#display {
+	font-weight:400px;
+}
+
+.version, .info {
+	text-align: center;
+}
+
+.buybutton {
+	border-style:outset;
+	border-color:gray;
+	height:223px;
+	width:200px;
+	text-align:center;
+	margin:0 auto;
+	display:inline-block;
+}
+.buybutton:active{
+	border-style:inset;
+	border-color:gray;
+}
+
+body {
+	margin: 0px auto;
+	background: no-repeat center 200px;
+	background-attachment: fixed;
+}
+
