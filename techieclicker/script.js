@@ -17,6 +17,8 @@ var nailInc = 1;
 var maxPow = 100;
 var maxAir = 100;
 
+var compSpeed = 1;
+
 var time = 0;
 var timeSinceLastLog;
 
@@ -24,7 +26,7 @@ var isNightMode = false;
 
 var log = "";
 
-var version = "0.3"
+var version = "1.0"
 
 window.onload = function() {//Stuff that happens on game load. Start logs, display version.
 	addToLog("Game has loaded.");
@@ -37,12 +39,23 @@ function everySecond(){//Stuff that is executed each second.
 	if (isCompOn) {//If compressor is on...
 		if (power <= 0) {//...and out of power...
 			isCompOn = false;//...turn compressor off.
-			document.getElementById('toggleCompressor').innerHTML = "Turn Compressor On"
-			document.getElementById('comp').innerHTML = "<img src=\"images/compressorOff.png\" onClick=\"clickCompressor()\" class=\"imgIcon imgAir\"></img>"
+			document.getElementById('toggleCompressor').innerHTML = "Turn Compressor On";
+			document.getElementById('comp').innerHTML = "<img src=\"images/compressorOff.png\" onClick=\"clickCompressor()\" class=\"imgIcon imgAir\"></img>";
 			addToLog("The compressor ran out of power.");
+		} else if (air >= maxAir) {
+			isCompOn = false;
+			document.getElementById('toggleCompressor').innerHTML = "Turn Compressor On";
+			document.getElementById('comp').innerHTML = "<img src=\"images/compressorOff.png\" onClick=\"clickCompressor()\" class=\"imgIcon imgAir\"></img>";
+			addToLog("The compressor is full.");
 		} else {//...and still has power...
-			power -= 1;//...subtract power...
-			air += 1;//...and gain air.
+			power -= compSpeed;//...subtract power...
+			air += compSpeed;//...and gain air.
+			if (power < 0) {
+				power = 0;
+			}
+			if (air > 100) {
+				air = 100;
+			}
 		}
 	}
 
@@ -67,7 +80,13 @@ function updateDisplay() {
 	document.getElementById('airPerc').innerHTML = "Air: " + Math.floor(air / maxAir * 100) + "%";
 	//document.getElementById('inBarPower').style.width = Math.floor(power / maxPow * 100);
 
-	//Update Display
+	document.getElementById('HenryAmt').innerHTML = techieStats[0].quant;
+	document.getElementById('PhilippAmt').innerHTML = techieStats[1].quant;
+
+	document.getElementById('CompLvl').innerHTML = compSpeed;
+
+	document.getElementById('MoneyAmt').innerHTML = money;
+
 	document.getElementById('log').innerHTML = log;
 }
 
@@ -98,6 +117,28 @@ function purchase(pAir, pPower, pWood, pNails){//Subtracts values from inventory
 	updateDisplay();
 }
 
+function buy(what){
+	if (what == 'nothing' && afford(0,0,0,0)) {
+		purchase(0,0,0,0);
+		wood += 0;
+	} else if (what == 'henry' && money >= 50) {
+		money -= 50;
+		techieStats[0].quant += 1;
+		addToLog("Purchase successful!");
+	} else if (what == 'philipp' && money >= 250) {
+		money -= 250;
+		techieStats[1].quant += 1;
+		addToLog("Purchase successful!");
+	} else if (what == 'compUpGr' && money >= 100) {
+		money -= 100;
+		compSpeed += 1
+		addToLog("Upgrade successful!");
+	} else {
+		addToLog("Purchase failed. Check $$$?");
+	}
+	updateDisplay();
+}
+
 function buildFlat(){//Build one flat.
 	if (afford(8,0,4,8)){
 		purchase(8,0,4,8);
@@ -113,6 +154,7 @@ function sellFlat(){
 	} else {
 		addToLog("No flats to sell!");
 	}
+	updateDisplay();
 }
 
 
@@ -175,13 +217,6 @@ function addToLog(message) {
 	}
 }
 
-function buy(what){
-	if (what == "nothing" && afford(0,0,0,0)) {
-		wood += 0;
-	}
-	addToLog("Purchase successful!");
-}
-
 //**************************************
 //**************************************
 //**********SAVE/LOAD FUNCTIONS*********
@@ -202,6 +237,7 @@ function save(){ //Stores inventory variables into localStorage.
 	localStorage.setItem("maxAirLS", maxAir);
 	localStorage.setItem("maxPowLS", maxPow);
 	localStorage.setItem("moneyLS", money);
+	localStorage.setItem("compSpeedLS", compSpeed);
 
 	localStorage.setItem("HenryLS",techieStats[0].quant);
 	localStorage.setItem("PhilippLS",techieStats[1].quant);
@@ -221,6 +257,7 @@ function load(){ //Loads inventory variables from localStorage.
 	maxPow = parseInt(localStorage.getItem("maxPowLS"));
 	flats = parseInt(localStorage.getItem("flatsLS"));
 	money = parseInt(localStorage.getItem("moneyLS"));
+	compSpeed = parseInt(localStorage.getItem("compSpeedLS"));
 
 	techieStats[0].quant = parseInt(localStorage.getItem("HenryLS"));
 	techieStats[1].quant = parseInt(localStorage.getItem("PhilippLS"));
@@ -230,3 +267,60 @@ function load(){ //Loads inventory variables from localStorage.
 }
 
 window.setInterval(everySecond,1000);
+
+function resetGame(safety) {
+	if (safety) {
+		if (confirm('Reset game?')) {
+			air = 0;
+			power = 0;
+			wood = 0;
+			nails = 0;
+			flats = 0;
+			money = 0;
+			isCompOn = false;
+			techieStats = [{name: "Henry", id: 1, woodPS: 1, nailPS: 1, powPS: 1, quant: 0},{name: "Philipp", id: 2, woodPS: 5, nailPS: 0, powPS: 0, quant: 0}];
+			woodInc = 1;
+			powInc = 4;
+			nailInc = 1;
+			maxPow = 100;
+			maxAir = 100;
+			compSpeed = 1;
+			time = 0;
+			log = "Game Reset.</br>";
+		} else {
+			addToLog("Reset cancelled.")
+		}
+	} else {
+		air = 0;
+		power = 0;
+		wood = 0;
+		nails = 0;
+		flats = 0;
+		money = 0;
+		isCompOn = false;
+		techieStats = [{name: "Henry", id: 1, woodPS: 1, nailPS: 1, powPS: 1, quant: 0},{name: "Philipp", id: 2, woodPS: 5, nailPS: 0, powPS: 0, quant: 0}];
+		woodInc = 1;
+		powInc = 4;
+		nailInc = 1;
+		maxPow = 100;
+		maxAir = 100;
+		compSpeed = 1;
+		time = 0;
+		log = "Game Reset.</br>";
+	}
+}
+
+function hax(){
+	code = prompt('Enter the cheat code.\nGet it wrong and your game is cleared.');
+	if (code == "anna") {
+		money += 1234567;
+	} else if (code == "iridium") {
+		compSpeed = 1;
+	} else if (code = null) {
+		addToLog("Chicken.");
+	} else {
+		resetGame(false);
+	}
+	updateDisplay();
+	return code;
+}

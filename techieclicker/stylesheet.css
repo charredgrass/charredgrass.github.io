@@ -37,14 +37,18 @@ table{
 	border: 1px solid black;
 }
 
-.logBox, .buttons, .data {
+.inventoryDisplay {
+	margin-top:-40px;
+}
+
+.logBox, .buttons, .data, .moreButtons {
 	text-align:center;
 	border: 1px solid #696969;
 	transition: border 1s;
 	-webkit-transition: border 1s;
 }
 
-.logBox:hover, .buttons:hover, .data:hover {
+.logBox:hover, .buttons:hover, .data:hover, .moreButtons:hover {
 	border: 1px solid black;
 }
 
@@ -86,6 +90,32 @@ table{
 
 body {
 	background-color:#ECECEC;
+}
+
+/* OTHER TABLEZ */
+
+.slaveDisplay {
+	margin-top:-593px;
+}
+
+.moneyDisplay {
+	margin-top:10px;
+}
+
+.levelDisplay {
+	margin-top:10px;
+}
+
+.slaveDisplay, .moneyDisplay, .levelDisplay {
+	width:175px;
+	margin-left:540px;
+	border: 1px solid #696969;
+	transition: border 1s;
+	-webkit-transition: border 1s;
+}
+
+.slaveDisplay:hover, .moneyDisplay:hover, .levelDisplay:hover {
+	border: 1px solid black;
 }
 
 /* Animations */
@@ -134,3 +164,7 @@ body {
 	10%, 30%, 50%, 70%, 90% {transform: translateX(-4px);} 
 	20%, 40%, 60%, 80% {transform: translateX(4px);} 
 } 
+
+.help {
+	color:gray;
+}

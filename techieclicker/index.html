@@ -10,8 +10,8 @@
 		<h1 class="head">Techie Clicker</h1>
 		<h3 id="version" class="version"></h3>
 	<div id="display">
-		<button class="toggleNightMode" onClick="toggleNightMode()">Toggle Night Mode</button>
-		<table>
+		<button class="toggleNightMode" onClick="toggleNightMode()">Toggle Night Mode</button> <a href="help.html" class="help" target="_blank">How to play</a>
+		<table class="inventoryDisplay display">
 		<tr><td><img src="images/power.png" onClick="clickPower()" class="imgIcon imgPow"></img></td><td class="data"><div id="powerPerc" class="dispVal">Power: 0%</div></td><td class="buttons">
 		<div id="buttons">
 			<button id="crankPower" onClick="clickPower()">Generate Power</button>
@@ -22,17 +22,62 @@
 		</br>
 			<button id="flat" onClick="buildFlat()">Build Flat</button>
 		</br>
-			<button id="save" onClick="save()">Save Game</button>
-			<button id="load" onClick="load()">Load Game</button>
+			<button id="save" onClick="save()">Save</button>
+			<button id="load" onClick="load()">Load</button>
+			<button id="reset" onClick="resetGame(true)">Reset</button>
 		</div></td></tr>
 	</br>
-		<tr><td><img src="images/wood.png" onClick="clickWood()" class="imgIcon imgWood"></img></td><td class="data"><div id="woodAmt" class="dispVal">1 by 3: 0</div></td><td class="logBox"><div class="log" id="log"></div></td></tr>
+		<tr><td><img src="images/wood.png" onClick="clickWood()" class="imgIcon imgWood"></img></td><td class="data"><div id="woodAmt" class="dispVal">1 by 3: 0</div></td><td class="moreButtons" id="morebuttons"><div id="moneyButtons">
+			<button id="Sell Flat" onClick="sellFlat()">Sell Flat</button>
+		</br>
+			<button id="buy buyHenry" onClick="buy('henry')">Buy Henry</button><button id="buy buyPhilipp" onClick="buy('philipp')">Buy Philipp</button>
+		</br>
+			<button id="compUpGr" onClick="buy('compUpGr')">Upgrade Compressor</button>
+		</br>
+			<button id="hax" onClick="hax()">Cheat Button</button>
+		</br>
+		</div></td></tr>
 	</br>
-		<tr><td><img src="images/nail.png" onClick="clickNail()" class="imgIcon imgNail"></img></td><td class="data"><div id="nailAmt" class="dispVal">Nails: 0</div></td></tr>
+		<tr><td><img src="images/nail.png" onClick="clickNail()" class="imgIcon imgNail"></img></td><td class="data"><div id="nailAmt" class="dispVal">Nails: 0</div></td><td class="logBox"><div class="log" id="log"></div></td></tr>
 	</br>
 		<tr><td id="comp"><img src="images/compressorOff.png" onClick="clickCompressor()" class="imgIcon imgAir"></img></td><td class="data"><div id="airPerc" class="dispVal">Air: 0%</div></td></tr>
 	</br>
 		<tr><td><img src="images/flat.png" onClick="buildFlat()" class="imgIcon imgFlat"></img></td><td class="data"><div id="flatAmt" class="dispVal flatVal">Flats: 0</div></br></td></tr>
-	</table></div>
+	</table>
+	<table class="display slaveDisplay">
+		<tr>
+			<td>Henrys</td>
+			<td><div id="HenryAmt" class="dispVal">0</div></td>
+		</tr>
+		<tr>
+			<td>Philipps</td>
+			<td><div id="PhilippAmt" class="dispVal">0</div></td>
+		</tr>
+		<tr>
+			<td>Not Yet Implemented</td>
+			<td><div id="XAmt" class="dispVal">0</div></td>
+		</tr>
+		<tr>
+			<td>Not Yet Implemented</td>
+			<td><div id="XAmt" class="dispVal">0</div></td>
+		</tr>
+	</table>
+	<table class="display moneyDisplay">
+		<tr>
+			<td>Moneys</td>
+			<td><div id="MoneyAmt" class="dispVal">0</div></td>
+		</tr>
+	</table>
+	<table class="display levelDisplay">
+		<tr>
+			<td>Compressor Level</td>
+			<td><div id="CompLvl" class="dispVal">0</div></td>
+		</tr>
+		<tr>
+			<td>Generator Level</td>
+			<td><div id="PowLvl" class="dispVal">0</div></td>
+		</tr>
+	</table>
+	</div>
 </br>
 </html>
