@@ -7,33 +7,32 @@
 	<title>Techie Clicker</title>
 </head>
 <body>
-	<div id="header">
-		<div class="head">Techie Clicker</div>
-	</div>
-	<div id="display"><table>
-		<tr><td><img src="images/power.png" onClick="clickPower()"></img></td><td><div id="powerPerc">Power: 0%</div></td><td><div id="powerBar" class="bar"><div id="inBarPower" class="xBar"></div</div></td></tr>
+		<h1 class="head">Techie Clicker</h1>
+		<h3 id="version" class="version"></h3>
+	<div id="display">
+		<button class="toggleNightMode" onClick="toggleNightMode()">Toggle Night Mode</button>
+		<table>
+		<tr><td><img src="images/power.png" onClick="clickPower()" class="imgIcon imgPow"></img></td><td class="data"><div id="powerPerc" class="dispVal">Power: 0%</div></td><td class="buttons">
+		<div id="buttons">
+			<button id="crankPower" onClick="clickPower()">Generate Power</button>
+			<button id="toggleCompressor" onClick="clickCompressor()">Turn Compressor On</button>
+		</br>
+			<button id="wood" onClick="clickWood()">Gather Wood</button>
+			<button id="nail" onClick="clickNail()">Create Nail</button>
+		</br>
+			<button id="flat" onClick="buildFlat()">Build Flat</button>
+		</br>
+			<button id="save" onClick="save()">Save Game</button>
+			<button id="load" onClick="load()">Load Game</button>
+		</div></td></tr>
 	</br>
-		<tr><td><img src="images/wood.png" onClick="clickWood()"></img></td><td><div id="woodAmt">1 by 3: 0</div></td><td></td></tr>
+		<tr><td><img src="images/wood.png" onClick="clickWood()" class="imgIcon imgWood"></img></td><td class="data"><div id="woodAmt" class="dispVal">1 by 3: 0</div></td><td class="logBox"><div class="log" id="log"></div></td></tr>
 	</br>
-		<tr><td><img src="images/nail.png" onClick="clickNail()"></img></td><td><div id="nailAmt">Nails: 0</div></td><td></td></tr>
+		<tr><td><img src="images/nail.png" onClick="clickNail()" class="imgIcon imgNail"></img></td><td class="data"><div id="nailAmt" class="dispVal">Nails: 0</div></td></tr>
 	</br>
-		<tr><td><div class="compressorIcon"></div></td><td><div id="airPerc">Air: 0%</div></td><td><div id="airBar" class="bar"><div id="inBarAir" class="xBar"></div</div></td></tr>
+		<tr><td id="comp"><img src="images/compressorOff.png" onClick="clickCompressor()" class="imgIcon imgAir"></img></td><td class="data"><div id="airPerc" class="dispVal">Air: 0%</div></td></tr>
 	</br>
-		<tr><td><img src="images/flat.png"></img></td><td><div id="flatAmt">Flats: 0</div></td><td></td></tr>
+		<tr><td><img src="images/flat.png" onClick="buildFlat()" class="imgIcon imgFlat"></img></td><td class="data"><div id="flatAmt" class="dispVal flatVal">Flats: 0</div></br></td></tr>
 	</table></div>
 </br>
-	<div id="botCol">
-	<div id="buttons">
-		<button id="crankPower" onClick="clickPower()">Generate Power</button>
-		<button id="toggleCompressor" onClick="clickCompressor()">Turn Compressor On</button>
-	</br>
-		<button id="wood" onClick="clickWood()">Gather Wood</button>
-		<button id="nail" onClick="clickNail()">Create Nail</button>
-	</br>
-		<button id="flat" onClick="buildFlat()">Build Flat</button>
-	</br>
-		<button id="save" onClick="save()">Save Game</button>
-		<button id="load" onClick="load()">Load Game</button>
-	</div>
-</div>
 </html>

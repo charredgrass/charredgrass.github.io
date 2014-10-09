@@ -17,30 +17,61 @@ var nailInc = 1;
 var maxPow = 100;
 var maxAir = 100;
 
+var time = 0;
+var timeSinceLastLog;
+
+var isNightMode = false;
+
 var log = "";
 
-//window.onLoad() = function(){
-//	log += "Document has loaded.\n";
-//};
+var version = "0.3"
 
+window.onload = function() {//Stuff that happens on game load. Start logs, display version.
+	addToLog("Game has loaded.");
+	document.getElementById('version').innerHTML = "version " + version;
+	document.getElementById('log').innerHTML = log;
+};
 
-function everySecond(){
+function everySecond(){//Stuff that is executed each second.
 	//Compressor Code
 	if (isCompOn) {//If compressor is on...
 		if (power <= 0) {//...and out of power...
 			isCompOn = false;//...turn compressor off.
 			document.getElementById('toggleCompressor').innerHTML = "Turn Compressor On"
+			document.getElementById('comp').innerHTML = "<img src=\"images/compressorOff.png\" onClick=\"clickCompressor()\" class=\"imgIcon imgAir\"></img>"
+			addToLog("The compressor ran out of power.");
 		} else {//...and still has power...
 			power -= 1;//...subtract power...
 			air += 1;//...and gain air.
 		}
 	}
-	addStuff(0);
-	addStuff(1);
-	updateDisplay();
+
+	var count = 0; //Add stuff from Automations.
+	while (count < techieStats.length){
+		addStuff(count);
+		count += 1;
+	}
+
+	if (getLogLength() > 5){
+		cutLog();
+	}
+	time += 1;
+	updateDisplay();//Update display.
 }
 
-function addStuff(id){
+function updateDisplay() {
+	document.getElementById('woodAmt').innerHTML = "1 by 3: " + wood;
+	document.getElementById('nailAmt').innerHTML = "Nails: " + nails;
+	document.getElementById('flatAmt').innerHTML = "Flats: " + flats;
+	document.getElementById('powerPerc').innerHTML = "Power: " + Math.floor(power / maxPow * 100) + "%";
+	document.getElementById('airPerc').innerHTML = "Air: " + Math.floor(air / maxAir * 100) + "%";
+	//document.getElementById('inBarPower').style.width = Math.floor(power / maxPow * 100);
+
+	//Update Display
+	document.getElementById('log').innerHTML = log;
+}
+
+function addStuff(id){//Increment based on Automations.
 	wood += techieStats[id].woodPS * techieStats[id].quant;
 	nail += techieStats[id].nailPS * techieStats[id].quant;
 	power += techieStats[id].powPS * techieStats[id].quant;
@@ -54,6 +85,7 @@ function afford(pAir, pPower, pWood, pNails){//Returns true if you can afford th
 	if (air >= pAir && power >= pPower && wood >= pWood && nails >= pNails){
 		return true;
 	} else {
+		addToLog("Can't afford!");
 		return false;
 	}	
 }
@@ -66,34 +98,7 @@ function purchase(pAir, pPower, pWood, pNails){//Subtracts values from inventory
 	updateDisplay();
 }
 
-function clickWood(){
-	wood += woodInc;
-	updateDisplay();
-}
-
-function clickNail(){
-	nails += nailInc;
-	updateDisplay();
-}
-
-function clickPower(){
-	power += powInc;
-	if (power > maxPow) {
-		power = maxPow;
-	}
-	updateDisplay();
-}
-
-function clickCompressor(){
-	isCompOn = !isCompOn;
-	if (isCompOn) {
-		document.getElementById('toggleCompressor').innerHTML = "Turn Compressor Off"
-	} else {
-		document.getElementById('toggleCompressor').innerHTML = "Turn Compressor On"
-	}
-}
-
-function buildFlat(){
+function buildFlat(){//Build one flat.
 	if (afford(8,0,4,8)){
 		purchase(8,0,4,8);
 		flats += 1;
@@ -105,6 +110,68 @@ function sellFlat(){
 	if (flats >= 1) {
 		flats -=1
 		money += 5;
+	} else {
+		addToLog("No flats to sell!");
+	}
+}
+
+
+function clickWood(){//Executed when one of the clickbuttons are pressed.
+	wood += woodInc;
+	updateDisplay();
+}
+
+function clickNail(){//Executed when one of the clickbuttons are pressed.
+	nails += nailInc;
+	updateDisplay();
+}
+
+function clickPower(){//Executed when one of the clickbuttons are pressed.
+	power += powInc;
+	if (power > maxPow) {
+		power = maxPow;
+	}
+	updateDisplay();
+}
+
+function clickCompressor(){//Activate/deactivate compressor.
+	isCompOn = !isCompOn;
+	if (isCompOn) {
+		document.getElementById('toggleCompressor').innerHTML = "Turn Compressor Off"
+		document.getElementById('comp').innerHTML = "<img src=\"images/compressorOn.png\" onClick=\"clickCompressor()\" class=\"imgIcon imgAir\"></img>"
+	} else {
+		document.getElementById('toggleCompressor').innerHTML = "Turn Compressor On"
+		document.getElementById('comp').innerHTML = "<img src=\"images/compressorOff.png\" onClick=\"clickCompressor()\" class=\"imgIcon imgAir\"></img>"
+	}
+}
+
+function toggleNightMode(){
+	isNightMode = !isNightMode;
+	if (isNightMode) {
+		document.body.style.backgroundColor = "#ADADAD";
+	} else {
+		document.body.style.backgroundColor = "#ECECEC";
+	}
+}
+
+function cutLog(){
+	//Cuts log
+	if (log != ""){
+		log = log.slice(5, log.length).slice(log.indexOf("</br>"), log.length);
+	}
+	updateDisplay();
+}
+
+function getLogLength(){
+	var count = log.match(/<\/br>/g).length;
+	return count;
+}
+
+function addToLog(message) {
+	log = log + message + "</br>"
+	timeSinceLastLog = 0;
+	if (getLogLength() > 5){
+		cutLog();
 	}
 }
 
@@ -112,16 +179,15 @@ function buy(what){
 	if (what == "nothing" && afford(0,0,0,0)) {
 		wood += 0;
 	}
+	addToLog("Purchase successful!");
 }
 
-function updateDisplay() {
-	document.getElementById('woodAmt').innerHTML = "1 by 3: " + wood;
-	document.getElementById('nailAmt').innerHTML = "Nails: " + nails;
-	document.getElementById('flatAmt').innerHTML = "Flats: " + flats;
-	document.getElementById('powerPerc').innerHTML = "Power: " + Math.floor(power / maxPow * 100) + "%";
-	document.getElementById('airPerc').innerHTML = "Air: " + Math.floor(air / maxAir * 100) + "%";
-	//document.getElementById('inBarPower').style.width = Math.floor(power / maxPow * 100);
-}
+//**************************************
+//**************************************
+//**********SAVE/LOAD FUNCTIONS*********
+//**************************************
+//**************************************
+
 
 function save(){ //Stores inventory variables into localStorage.
 	console.log('Saving game');
@@ -139,6 +205,7 @@ function save(){ //Stores inventory variables into localStorage.
 
 	localStorage.setItem("HenryLS",techieStats[0].quant);
 	localStorage.setItem("PhilippLS",techieStats[1].quant);
+	addToLog("Game saved.");
 }
 
 function load(){ //Loads inventory variables from localStorage.
@@ -159,6 +226,7 @@ function load(){ //Loads inventory variables from localStorage.
 	techieStats[1].quant = parseInt(localStorage.getItem("PhilippLS"));
 
 	updateDisplay();
+	addToLog("Game loaded from save file.");
 }
 
 window.setInterval(everySecond,1000);
