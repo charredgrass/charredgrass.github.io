@@ -5,7 +5,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/tooltipster/3.0.5/js/jquery.tooltipster.min.js"></script>
 <script>
 $(function () {
-    $('#container').highcharts({
+    $('#genderChart').highcharts({
         chart: {
             plotBackgroundColor: null,
             plotBorderWidth: null,
@@ -40,10 +40,48 @@ $(function () {
             ]
         }]
     });
+    $('#charChart').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+            text: 'Favorite character'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Facorite character',
+            data: [
+                ['Elsa',   195],
+                ['Anna', 48],
+                ['Olaf',   4]
+                ['Kristoff', 3]
+                ['Hans', 8]
+                ['Other', 8]
+            ]
+        }]
+    });
 });
 
 
 
 </script>
 
-<div id="container" style="width:100%; height:400px;"></div>
+<div id="genderChart" style="width:100%; height:400px;"></div>
