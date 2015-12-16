@@ -1,0 +1,18 @@
+.aussie{
+	display:inline-block;
+}
+
+.headertext {
+	display:inline-block;
+	line-height: 47px;
+	font-size: 30px;
+	margin-bottom: 40px;
+}
+
+.header {
+	text-align: center;
+}
+
+body {
+	background-color: #696969;
+}
