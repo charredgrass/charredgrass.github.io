@@ -16,3 +16,11 @@
 body {
 	background-color: #696969;
 }
+
+.steam {
+	display:inline-block;
+	height:auto;
+	width:500px;
+	background-color: #DDDDDD;
+	border: solid #444444 1px;
+}
