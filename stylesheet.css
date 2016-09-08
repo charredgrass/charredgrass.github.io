@@ -14,7 +14,7 @@
 }
 
 body {
-	background-color: #696969;
+	background-color: #A6ACAD;
 }
 
 .steam {
@@ -29,4 +29,18 @@ body {
 	border-radius: 15px;
 	height:100px;
 	width:auto;
+}
+
+.link {
+	color:#2290B5;
+	width:auto;
+	padding: 30px 30px;
+	line-height: 40px;
+	height: 40px;
+}
+
+poo.lbord {
+	border:2px solid #6A7275;
+	border-radius: 3px;
+	height:auto;
 }
