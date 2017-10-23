@@ -8,7 +8,7 @@ var data = [{
     dav: "https://cdn.discordapp.com/avatars/160126655233392640/a7233f1c3d1ec658692fcf4168af67a4.png?size=128"
 }, {
     name: "Mini",
-    pins: 2,
+    pins: 3,
     dav: "https://cdn.discordapp.com/avatars/184444270789263360/d0cbde7472fa077f7032fcfdc075217e.png?size=128"
 }, {
     name: "Charred",
