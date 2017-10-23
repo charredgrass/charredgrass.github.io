@@ -1,0 +1,14 @@
+.chart div {
+	background-color: steelblue;
+	color: white;
+}
+
+.pies div {
+	border-radius: 100%;
+	border: 1px transparent;
+	/*background-color: #ccc;*/
+	color:white;
+	text-align: center;
+	background-repeat: no-repeat;
+	background-size: 100% auto;
+}
