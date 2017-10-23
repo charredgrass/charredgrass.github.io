@@ -12,7 +12,7 @@ var data = [{
     dav: "https://cdn.discordapp.com/avatars/184444270789263360/d0cbde7472fa077f7032fcfdc075217e.png?size=128"
 }, {
     name: "Charred",
-    pins: 21,
+    pins: 22,
     dav: "https://cdn.discordapp.com/avatars/154826263628873728/e46a4da0c47701b65af0c01a941e9181.png?size=128"
 }, {
     name: "Juiceka",
