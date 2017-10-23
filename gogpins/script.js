@@ -72,4 +72,4 @@ d3.select(".pies").selectAll("div")
         return d.name
     }).attr("title", (d) => {
         return d.name
-    })
+    }).transition().duration(750).delay((d, i) => {return i*10})
